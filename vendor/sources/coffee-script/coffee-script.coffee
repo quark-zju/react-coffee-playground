@@ -7,10 +7,6 @@
 {parser}      = require './parser'
 helpers       = require './helpers'
 
-# Export to browser
-if window
-  window.CoffeeScript = exports
-
 # The current CoffeeScript version number.
 exports.VERSION = '1.9.1'
 
