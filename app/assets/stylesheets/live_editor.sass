@@ -1,0 +1,62 @@
+// Taken from facebook.github.io/react/css/react.css, modified
+
+$primary-color: #cc7a6f
+$dark-color: #2d2d2d
+$darkest-color: #222222
+$tab-background-color: #f1ede4
+$tab-inactive-text-color: #c2c0bc
+
+#react-coffee-playground
+  margin: 30px
+  div.CodeMirror
+    min-height: 110px
+    height: auto
+    max-height: 600px
+  div.CodeMirror pre, div.CodeMirror-linenumber, code
+    font-family: 'source-code-pro', Menlo, Consolas, 'Courier New', monospace
+    font-size: 13px
+    line-height: 20px
+  .playground
+    width: 100%
+    .playground_code_wrapper
+      display: inline-block
+      width: 50%
+    .playground_preview
+      display: inline-block
+      width: 40%
+      vertical-align: top
+      margin-top: 25px
+      margin-left: 20px
+      overflow: auto
+  .playground_code, .playground_tab, .playground_preview
+    border: 1px solid rgba(16,16,16,0.1)
+  .playground_tab
+    border-bottom: none
+    padding: 6px 8px
+    font-size: 12px
+    font-weight: bold
+    color: $tab-inactive-text-color
+    display: inline-block
+    background-color: $tab-background-color
+    cursor: pointer
+  .playground_tab_active
+    color: $darkest-color
+  .playground_code
+    overflow: hidden
+  .playground_preview
+    background-color: white
+    padding: 15px 20px
+    & > * > *
+      position: relative !important
+  .playground_error
+    color: darken($primary-color, 5%)
+    font-size: 15px
+  .example
+    margin-top: 30px
+    h3
+      color: $dark-color
+      font-size: 24px
+      font-weight: normal
+      margin-bottom: 5px
+    p
+      margin: 0 0 25px 0

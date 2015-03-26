@@ -1,0 +1,30 @@
+doctype html
+html
+  meta charset='utf-8'
+  script src='assets/application.js'
+  link href='assets/application.css' rel='stylesheet'
+body
+  div#react-coffee-playground
+    pre.code
+      | class Counter extends React.Component
+          @propTypes = initialCount: React.PropTypes.number
+          @defaultProps = initialCount: 0
+        
+          constructor: (props) ->
+            super props
+            @state = count: props.initialCount
+        
+          tick: =>
+            @setState count: @state.count + 1
+        
+          render: ->
+            div className: 'counter',
+              button style: {float: 'right'}, onClick: @tick, '+1'
+              span null, "Count: #{'#{@state.count}'}"
+
+        React.render &lt;Counter initialCount={1+2} /&gt;, mountNode
+
+  coffee:
+    document.addEventListener 'DOMContentLoaded', ->
+      element = document.getElementById('react-coffee-playground')
+      React.render ReactPlayground(codeText: element.textContent), element

@@ -1,0 +1,14 @@
+tmp/
+
+vendor/sources/coffee-script/lexer.js
+vendor/sources/coffee-script/rewriter.js
+vendor/sources/coffee-script/nodes.js
+vendor/sources/coffee-script/browser.js
+vendor/sources/coffee-script/coffee-script.js
+vendor/sources/coffee-script/helpers.js
+vendor/sources/coffee-script/grammar.js
+vendor/sources/coffee-react-transform/serialiser.js
+vendor/sources/coffee-react-transform/transformer.js
+vendor/sources/coffee-react-transform/parser.js
+vendor/sources/coffee-react-transform/helpers.js
+vendor/sources/coffee-react-transform/symbols.js
