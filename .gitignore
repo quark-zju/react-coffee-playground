@@ -12,3 +12,5 @@ vendor/sources/coffee-react-transform/transformer.js
 vendor/sources/coffee-react-transform/parser.js
 vendor/sources/coffee-react-transform/helpers.js
 vendor/sources/coffee-react-transform/symbols.js
+
+public/
