@@ -14,7 +14,6 @@ CodeMirrorEditor = React.createFactory React.createClass
 
   componentDidMount: ->
     @editor = CodeMirror.fromTextArea(@refs.editor.getDOMNode(),
-      mode: @props.mode || 'coffeescript'
       lineNumbers: @props.lineNumbers
       lineWrapping: true
       smartIndent: true
@@ -51,10 +50,6 @@ selfCleaningTimeout =
 
   mixins: [ selfCleaningTimeout ]
 
-  MODES:
-    COFFEE: 'coffeescript'
-    JS: 'JS'
-
   propTypes:
     codeText: React.PropTypes.string.isRequired
     transformer: React.PropTypes.func
@@ -65,19 +60,14 @@ selfCleaningTimeout =
   getDefaultProps: ->
     transformer: (code) ->
       CoffeeScript.compile(CjsxTransform.transform(code))
-    showCompiledJSTab: true
     showLineNumbers: false
 
   getInitialState: ->
-    mode: @MODES.COFFEE
     code: @props.codeText
 
   handleCodeChange: (value) ->
     @setState code: value
     @executeCode()
-
-  handleCodeModeSwitch: (mode) ->
-    @setState mode: mode
 
   compileCode: ->
     code = @state.code
@@ -89,37 +79,21 @@ selfCleaningTimeout =
     @props.transformer code
 
   render: ->
-    isJS = @state.mode == @MODES.JS
     compiledCode = ''
 
     try
       compiledCode = @compileCode()
 
-    JSContent = CodeMirrorEditor
-      key: 'js'
-      mode: 'javascript'
-      className: 'playgroundStage CodeMirror-readonly'
-      onChange: @handleCodeChange
-      codeText: compiledCode
-      readOnly: true
-      lineNumbers: @props.showLineNumbers
-
     CoffeeContent = CodeMirrorEditor
       key: 'coffee'
-      mode: 'coffeescript'
       onChange: @handleCodeChange
       className: 'playgroundStage'
       codeText: @state.code
       lineNumbers: @props.showLineNumbers
 
-    CoffeeTabClassName = "playground_tab#{if isJS then '' else ' playground_tab_active'}"
-    JSTabClassName = "playground_tab#{if isJS then ' playground_tab_active' else ''}"
-    JSTab = div className: JSTabClassName, onClick: @handleCodeModeSwitch.bind(this, @MODES.JS), 'Compiled JS'
-    CoffeeTab = div className: CoffeeTabClassName, onClick: @handleCodeModeSwitch.bind(this, @MODES.COFFEE), 'Live Coffee Editor'
-
     div className: 'playground',
-      div className: 'playground_code_wrapper', CoffeeTab, @props.showCompiledJSTab && JSTab,
-        div className: 'playground_code', (if isJS then JSContent else CoffeeContent)
+      div className: 'playground_code_wrapper',
+        div className: 'playground_code', CoffeeContent
       div className: 'playground_preview',
         div ref: 'mount'
 
