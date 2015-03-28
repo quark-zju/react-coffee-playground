@@ -33,3 +33,16 @@ but that's javascript. This project tries to fill the blank.
 * Press [Tab] to active auto completion. The auto completer is stupid but practically useful.
 * Serialize the code to the URL. So it can be shared without a central hosting server.
 * JSX support thanks to [coffee-react-transform](https://github.com/jsdf/coffee-react-transform). Highlighting won't work though.
+
+
+## Build
+
+```bash
+bundle && bundle exec rake
+browser public/index.html
+```
+
+
+## Code Structure
+
+The project looks like a Rails project. However it's not a dynamic Rails app but just some static files using Rake to build.

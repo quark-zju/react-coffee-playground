@@ -40,7 +40,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  activesupport
-  coffee-script
-  slim
-  sprockets-standalone
+  activesupport (~> 4.2.0)
+  coffee-script (~> 2.3.0)
+  slim (~> 3.0.2)
+  sprockets-standalone (~> 1.2.1)
