@@ -8,11 +8,11 @@ Sprockets::Standalone::RakeTask.new(:assets) do |task, sprockets|
   task.sources  = %w[app/assets/javascripts app/assets/stylesheets vendor/assets/javascripts vendor/assets/stylesheets]
   task.output   = File.join(root_path, 'public/assets')
   task.digest   = false
+  task.compress = true
 
   task.environment.cache = ActiveSupport::Cache::FileStore.new(File.join(root_path, 'tmp/cache/assets'))
 
   if ENV['COMPRESS']
-    task.compress = true
     sprockets.js_compressor  = :uglifier
     sprockets.css_compressor = :sass
   end
