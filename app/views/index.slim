@@ -12,13 +12,25 @@ body
           render: -&gt;
             div id: 'intro',
               h1 null, 'React Coffee Playground'
-              p null, 'The scraptchpad for React and CoffeeScript fans.'
+              p null, 'The scraptchpad for React and CoffeeScript fans'
+              h4 null, 'Features'
               ul null,
-                li null,
-                  'We did "{div, h1, p ...} = React.DOM" for you. '
-                  'Just write "div" instead of "React.DOM.div"'
-                &lt;li&gt;Alternatively, you can use JSX&lt;/li&gt;
-        
+                li null, 'Live coding, in CoffeeScript'
+                li null, '"div" is "React.DOM.div"'
+                li null, '[Tab] autocompletion (experimental)'
+                &lt;li&gt;JSX (experimental)&lt;/li&gt;
+              h4 null, 'Libraries'
+              ul null,
+                _.map {
+                  React: React.version
+                  CoffeeScript: CoffeeScript.VERSION
+                  Underscore: _.VERSION
+                }, (v, k) ->
+                  li key: k, null,
+                    b null, k
+                    ': '
+                    v
+       
         React.render MyComponent(), mountNode
 
   coffee:
