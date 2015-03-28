@@ -29,6 +29,7 @@ but that's javascript. This project tries to fill the blank.
 
 ## Features
 
+* Live coding in CoffeeScript and see the React component in real time.
 * `{div, span, p ... } = React.DOM` is done by the editor. So you can use them directly.
 * Press [Tab] to active auto completion. The auto completer is stupid but practically useful.
 * Serialize the code to the URL. So it can be shared without a central hosting server.
