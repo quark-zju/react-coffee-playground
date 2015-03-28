@@ -16,19 +16,24 @@ CodeMirrorEditor = React.createFactory React.createClass
     @editor = CodeMirror.fromTextArea(@refs.editor.getDOMNode(),
       lineNumbers: @props.lineNumbers
       lineWrapping: true
-      smartIndent: true
       matchBrackets: true
       theme: 'ambiance'
-      indentUnit: 2,
-      smartIndent: false,
-      tabSize: 2,
-      indentWithTabs: false,
-      autofocus: true,
+      indentUnit: 2
+      smartIndent: false
+      tabSize: 2
+      indentWithTabs: false
+      autofocus: true
       extraKeys:
         'Ctrl-Space': 'autocomplete'
-        'Tab':  (cm) ->
-          spaces = Array(cm.getOption('indentUnit') + 1).join(' ')
-          cm.replaceSelection(spaces)
+        'Tab': (cm) ->
+          if cm.somethingSelected()
+            cm.indentSelection 'add'
+          else
+            cursor = cm.getCursor()
+            if cm.getLine(cursor.line).length == cursor.ch
+              cm.execCommand 'autocomplete'
+            else
+              cm.replaceSelection '  '
       styleActiveLine: true)
 
     @editor.on 'change', @handleChange
