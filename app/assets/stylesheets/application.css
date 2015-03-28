@@ -1,5 +1,11 @@
 /**
+ *=require normalize
  *=require live_editor
  *=require codemirror
- *=require codemirror-theme-ambiance
+ *=require codemirror/theme/ambiance
+ *=require codemirror/addon/hint/show-hint
  */
+
+html, body {
+  height: 100%;
+}

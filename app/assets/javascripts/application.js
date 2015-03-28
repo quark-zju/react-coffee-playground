@@ -1,5 +1,9 @@
 //=require codemirror
-//=require codemirror-mode-coffeescript
+//=require codemirror/addon/selection/active-line
+//=require codemirror/addon/edit/matchbrackets
+//=require codemirror/addon/hint/show-hint
+//=require codemirror/addon/hint/anyword-hint
+//=require codemirror/mode/coffeescript
 //=require react-with-addons-0.13.0
 //=require underscore
 //=require coffee-script
