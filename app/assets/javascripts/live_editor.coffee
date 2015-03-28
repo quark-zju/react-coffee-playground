@@ -19,16 +19,22 @@ CodeMirrorEditor = React.createFactory React.createClass
       smartIndent: true
       matchBrackets: true
       theme: 'ambiance'
-      readOnly: @props.readOnly)
+      indentUnit: 2,
+      smartIndent: false,
+      tabSize: 2,
+      indentWithTabs: false,
+      autofocus: true,
+      extraKeys:
+        'Ctrl-Space': 'autocomplete'
+        'Tab':  (cm) ->
+          spaces = Array(cm.getOption('indentUnit') + 1).join(' ')
+          cm.replaceSelection(spaces)
+      styleActiveLine: true)
+
     @editor.on 'change', @handleChange
 
-  componentDidUpdate: ->
-    if @props.readOnly
-      @editor.setValue @props.codeText
-
   handleChange: ->
-    if !@props.readOnly
-      @props.onChange?(@editor.getValue())
+    @props.onChange?(@editor.getValue())
 
   render: ->
     # wrap in a div to fully contain CodeMirror
@@ -53,8 +59,6 @@ selfCleaningTimeout =
   propTypes:
     codeText: React.PropTypes.string.isRequired
     transformer: React.PropTypes.func
-    renderCode: React.PropTypes.bool
-    showCompiledJSTab: React.PropTypes.bool
     showLineNumbers: React.PropTypes.bool
 
   getDefaultProps: ->
@@ -71,11 +75,6 @@ selfCleaningTimeout =
 
   compileCode: ->
     code = @state.code
-    # Import React.DOM components, written in the 1st line coffeescript
-    tokens = _.intersection(_(React.DOM).keys(), code.split(/[\s(]/))
-    if tokens.length > 0
-      # `var` is reserved in coffeescript, remove it
-      code = "{#{tokens.toString().replace(/(var,|var$)/, '')}} = React.DOM;#{code}"
     @props.transformer code
 
   render: ->
@@ -85,7 +84,6 @@ selfCleaningTimeout =
       compiledCode = @compileCode()
 
     CoffeeContent = CodeMirrorEditor
-      key: 'coffee'
       onChange: @handleCodeChange
       className: 'playgroundStage'
       codeText: @state.code
@@ -93,36 +91,32 @@ selfCleaningTimeout =
 
     div className: 'playground',
       div className: 'playground_code_wrapper',
-        div className: 'playground_code', CoffeeContent
+        CoffeeContent
       div className: 'playground_preview',
         div ref: 'mount'
 
   componentDidMount: ->
     @executeCode()
 
-  componentDidUpdate: (prevProps, prevState) ->
-    # execute code only when the state's not being updated by switching tab
-    # this avoids re-displaying the error, which comes after a certain delay
-    if @props.transformer != prevProps.transformer || @state.code != prevState.code
-      @executeCode()
-
   executeCode: ->
     mountNode = @refs.mount.getDOMNode()
     try
       React.unmountComponentAtNode mountNode
+    # Make React.DOM variables (exclude keyword `var`) available in current scope.
+    eval (_.without(_(React.DOM).keys(), 'var').map (name) ->
+      "var #{name} = React.DOM.#{name};"
+    ).join('')
     try
       compiledCode = @compileCode()
-      if @props.renderCode
-        React.render CodeMirrorEditor(
-          codeText: compiledCode
-          readOnly: true
-        ), mountNode
-      else
-        eval compiledCode
+      eval compiledCode
     catch err
+      if err instanceof SyntaxError
+        line = err.location.first_line
+
+      window.err = err
       @setTimeout (->
         React.render(
-          div className: 'playground_error',
+          pre className: 'playground_error',
             err.toString()
           mountNode
         )
