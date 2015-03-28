@@ -1,28 +1,25 @@
 doctype html
 html
   meta charset='utf-8'
+  title React Coffee Playground
+  meta name='description' content='Scraptchpad for React and CoffeeScript fans'
   script src='assets/application.js'
   link href='assets/application.css' rel='stylesheet'
 body
   div#react-coffee-playground
     pre.code
-      | class Counter extends React.Component
-          @propTypes = initialCount: React.PropTypes.number
-          @defaultProps = initialCount: 0
+      | MyComponent = React.createFactory React.createClass
+          render: -&gt;
+            div id: 'intro',
+              h1 null, 'React Coffee Playground'
+              p null, 'The scraptchpad for React and CoffeeScript fans.'
+              ul null,
+                li null,
+                  'We did "{div, h1, p ...} = React.DOM" for you. '
+                  'Just write "div" instead of "React.DOM.div"'
+                &lt;li&gt;Alternatively, you can use &lt;b&gt;JSX&lt;/b&gt;&lt;/li&gt;
         
-          constructor: (props) ->
-            super props
-            @state = count: props.initialCount
-        
-          tick: =>
-            @setState count: @state.count + 1
-        
-          render: ->
-            div className: 'counter',
-              button style: {float: 'right'}, onClick: @tick, '+1'
-              span null, "Count: #{'#{@state.count}'}"
-
-        React.render &lt;Counter initialCount={1+2} /&gt;, mountNode
+        React.render MyComponent(), mountNode
 
   coffee:
     document.addEventListener 'DOMContentLoaded', ->
