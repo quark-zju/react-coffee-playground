@@ -36,11 +36,13 @@ but that's javascript. This project tries to fill the blank.
 * JSX support thanks to [coffee-react-transform](https://github.com/jsdf/coffee-react-transform). Highlighting won't work though.
 
 
-## Build
+## Build and run
 
 ```bash
 bundle && bundle exec rake
-browser public/index.html
+
+cd public && python2 -m SimpleHTTPServer
+browser localhost:8000
 ```
 
 
