@@ -18,6 +18,7 @@ body
                 li null, 'Live coding, in CoffeeScript'
                 li null, '"div" is "React.DOM.div"'
                 li null, '[Tab] autocompletion (experimental)'
+                li null, 'Serialize code to URL'
                 &lt;li&gt;JSX (experimental)&lt;/li&gt;
               h4 null, 'Libraries'
               ul null,
@@ -35,5 +36,11 @@ body
 
   coffee:
     document.addEventListener 'DOMContentLoaded', ->
+      hash = window.location.hash
+      if hash.length
+        if hash[0] == '#'
+          hash = hash[1..-1]
+        try
+          code = LZString.decompressFromBase64(hash)
       element = document.getElementById('react-coffee-playground')
-      React.render ReactPlayground(codeText: element.textContent), element
+      React.render ReactPlayground(codeText: code || element.textContent), element

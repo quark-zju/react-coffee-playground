@@ -187,14 +187,15 @@ selfCleaningTimeout =
     @executeCode()
 
   compileCode: ->
-    code = @state.code
-    @props.transformer code
+    @props.transformer @state.code
 
   render: ->
     compiledCode = ''
 
     try
       compiledCode = @compileCode()
+      window.code = @state.code
+      window.compiledCode = compiledCode
 
     CoffeeContent = CodeMirrorEditor
       onChange: @handleCodeChange
@@ -203,13 +204,18 @@ selfCleaningTimeout =
       lineNumbers: @props.showLineNumbers
 
     div className: 'playground',
-      div className: 'playground_code_wrapper',
+      div className: 'playground_code_wrapper', onBlur: @updateLocationHash,
         CoffeeContent
       div className: 'playground_preview',
         div ref: 'mount'
 
   componentDidMount: ->
     @executeCode()
+
+  updateLocationHash: ->
+    hash = '#' + LZString.compressToBase64(@state.code)
+    if window.location.hash != hash
+      window.location.hash = hash
 
   executeCode: ->
     mountNode = @refs.mount.getDOMNode()
@@ -232,4 +238,4 @@ selfCleaningTimeout =
             err.toString()
           mountNode
         )
-      ), 100
+      ), 500
