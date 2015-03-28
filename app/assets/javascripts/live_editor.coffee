@@ -134,6 +134,7 @@ CodeMirrorEditor = React.createFactory React.createClass
               cm.execCommand 'autocomplete'
             else
               cm.replaceSelection Array(TAB_WIDTH + 1).join(' ')
+        'Shift-Tab': 'indentLess'
         'Backspace': (cm) ->
           cursor = cm.getCursor()
           line = cm.getLine(cursor.line)
