@@ -17,10 +17,7 @@
           CoffeeScript: CoffeeScript.VERSION
           Underscore: _.VERSION
         }, (v, k) ->
-          li key: k, null,
-            b null, k
-            ': '
-            v
+          li key: k, "#{k}: #{v}"
 
 React.render MyComponent(), mountNode</pre></div><script type="text/javascript">(function() {
   document.addEventListener('DOMContentLoaded', function() {
