@@ -107,21 +107,20 @@ selfCleaningTimeout =
     mountNode = @refs.mount.getDOMNode()
     try
       React.unmountComponentAtNode mountNode
+
     # Make React.DOM variables (exclude keyword `var`) available in current scope.
     eval (_.without(_(React.DOM).keys(), 'var').map (name) ->
       "var #{name} = React.DOM.#{name};"
     ).join('')
+
     try
       compiledCode = @compileCode()
       eval compiledCode
     catch err
-      if err instanceof SyntaxError
-        line = err.location.first_line
-
       window.err = err
-      @setTimeout (->
+      @setTimeout (=>
         React.render(
-          pre className: 'playground_error',
+          div className: 'playground_error',
             err.toString()
           mountNode
         )
