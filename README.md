@@ -1,4 +1,4 @@
-# React Coffee Playground
+# [React Coffee Playground](http://quark-zju.github.io/react-coffee-playground)
 
 Like [react-live-editor](https://github.com/joelburget/react-live-editor) but in [CoffeeScript](https://github.com/jashkenas/coffeescript).
 
