@@ -10,22 +10,28 @@
     line-height: 20px
   .playground
     width: 100%
-    display: table
     height: 100%
     .playground_code_wrapper
       height: 100%
-      display: table-cell
+      display: block
+      position: fixed
+      top: 0
+      bottom: 0
+      right: 0
       width: 50%
-      padding: 20px
       background: #202020
+      overflow: auto
     .playground_preview
-      display: table-cell
+      display: block
+      position: fixed
+      left: 0
+      top: 0
+      bottom: 0
       width: 50%
       vertical-align: top
       overflow: auto
   .playground_preview
     background-color: white
-    padding: 15px 20px
   .playground_error
     color: red
     font-size: 15px

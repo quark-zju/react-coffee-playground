@@ -110,7 +110,7 @@ CodeMirrorEditor = React.createFactory React.createClass
   componentDidMount: ->
     @editor = CodeMirror.fromTextArea(@refs.editor.getDOMNode(),
       lineNumbers: @props.lineNumbers
-      lineWrapping: true
+      lineWrapping: false
       matchBrackets: true
       theme: 'ambiance'
       indentUnit: TAB_WIDTH

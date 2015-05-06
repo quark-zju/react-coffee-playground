@@ -6,7 +6,7 @@
 //=require codemirror/addon/hint/anyword-hint
 //=require codemirror/addon/hint/javascript-hint
 //=require codemirror/mode/coffeescript
-//=require react-with-addons-0.13.0
+//=require react-with-addons
 //=require coffee-script
 //=require lz-string.min
 //=require live_editor
