@@ -164,6 +164,16 @@ selfCleaningTimeout =
     @timeoutID = setTimeout.apply(null, arguments)
 
 
+need = (url) ->
+  # add <script /> to <header /> so the library could be used
+  return if url[-3..] != '.js'
+  scriptTag = document.createElement('script')
+  scriptTag.type = 'text/javascript'
+  scriptTag.async = true
+  scriptTag.src = url
+  return if _.any(document.querySelectorAll('script'), (s) -> s.src == url)
+  document.head.appendChild scriptTag
+
 @ReactPlayground = React.createFactory React.createClass
   displayName: 'ReactPlayground'
 
